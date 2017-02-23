@@ -2,10 +2,12 @@
 - name: Post installation execution tasks
   vars:
     dest: /tmp/work
-    src: /home/ansible@cloud.local
+    src: "{{ playbook_dir | dirname }}"
 
   vars_files:
-    - "{{src}}/playbooks/{{ script }}.vars.yaml"
+    - "{{ playbook_dir }}/{{ script }}.vars.yaml"
+
+  - debug: msg "{{ src }}"
 
   hosts: "{{ target }}"
   become_user: "{{ executor }}"
