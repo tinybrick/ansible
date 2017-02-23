@@ -1,0 +1,60 @@
+---
+- name: Post installation execution tasks
+  vars:
+    dest: /tmp/work
+    src: /home/ansible@cloud.local
+
+  vars_files:
+    - "{{src}}/playbooks/{{ script }}.vars.yaml"
+
+  hosts: "{{ target }}"
+  become_user: "{{ executor }}"
+  become_method: sudo
+
+  tasks:
+    - set_fact: logfile="{{ inventory_hostname }}-{{lookup('pipe', 'date +%Y%m%d%H%M%S')}}.out"
+
+    - name: Create upload folder
+      file: path="{{ dest }}" state=directory owner=root group=root mode=0750 recurse=yes
+
+    - name: Transfer postinst script
+      template:
+        src: "{{ src }}/bin/{{ script }}.sh"
+        dest: "{{ dest }}"
+        owner: root
+        group: root
+        mode: "u=rwx,g=r,o=r"
+
+    - name: Execute the script with arguments
+      shell: "{{ dest }}/{{ script }}.sh {{ arguments }} > {{ dest }}/{{ script }}-{{ logfile }}"
+      when: not(
+              (arguments is undefined)
+              or
+              (arguments is none)
+              or
+              (arguments | trim == '')
+            )
+
+    - name: Execute the script
+      shell: "{{ dest }}/{{ script }}.sh > {{ dest }}/{{ script }}-{{ logfile }}"
+      when: (arguments is undefined) or (arguments is none) or (arguments | trim == '')
+
+    - shell: "/bin/cat {{ dest }}/{{ script }}-{{ logfile }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+    - debug: var=out.stderr_lines
+    - debug: var=out.rc
+
+    - local_action: file path="{{ src }}/logs/{{ script }}" state=directory owner=ansible group=root mode=0770 recurse=yes
+
+    - name: Pull back log file
+      fetch:
+        src: "{{ dest }}/{{ script }}-{{ logfile }}"
+        dest: "{{ src }}/logs/{{ script }}/{{ script }}-{{ logfile }}"
+        flat: yes
+
+    - name: Clean up
+      file:
+        state: absent
+        path: "{{ dest }}"
