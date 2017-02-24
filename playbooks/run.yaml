@@ -11,7 +11,6 @@
 
   hosts: "{{ target }}"
   become_user: "{{ executor }}"
-  become_method: sudo
 
   tasks:
     - set_fact: logfile="{{ inventory_hostname }}-{{lookup('pipe', 'date +%Y%m%d%H%M%S')}}.out"
