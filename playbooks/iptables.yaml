@@ -15,3 +15,7 @@
     - name: "Delete {{ protocol }} on port {{ port }}"
       shell: "iptables -D INPUT -p {{ protocol }} -m state --state NEW -m {{ protocol }} --dport {{ port }} -j ACCEPT"
       when: ((op is defined) and (op | trim == 'del') and not(protocol | trim == '') and (port is defined))
+
+    - name: Save iptables configuration
+      shell: "iptables-save > /etc/sysconfig/iptables"
+      when: (op | trim == 'save')
