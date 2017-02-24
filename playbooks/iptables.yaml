@@ -3,7 +3,6 @@
 
   vars:
     protocol: "{{ proto | default('tcp') }}"
-#    protocol: tcp
 
   hosts: "{{ host }}"
   become: true
