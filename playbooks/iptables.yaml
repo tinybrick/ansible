@@ -1,0 +1,17 @@
+---
+- name: Change iptables
+
+  vars:
+    protocol: tcp
+
+  hosts: "{{ host }}"
+  become: true
+
+  tasks:
+    - name: "Open {{protocol}} on port {{port}}"
+      shell: "iptables -A INPUT -p {{ protocol }} -m state --state NEW -m {{ protocol }} --dport {{ port }} -j ACCEPT"
+      when: ((op | trim == 'add') and not(protocol | trim == '') and (port is defined))
+
+    - name: "Delete {{ protocol }} on port {{ port }}"
+      shell: "iptables -D INPUT -p {{ protocol }} -m state --state NEW -m {{ protocol }} --dport {{ port }} -j ACCEPT"
+      when: ((op | trim == 'del') and not(protocol | trim == '') and (port is defined))
