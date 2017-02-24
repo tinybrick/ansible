@@ -1,0 +1,15 @@
+---
+- name: Re-config HDFS Server
+  vars:
+    dest: /opt/hdfs/hadoop-2.7.3
+    src: "/home/ansible@cloud.local/ansible/hdfs"
+    user: hdfs
+
+  hosts: hdfs
+  become_user: "{{ user }}"
+
+  tasks:
+    - name: Upload config files
+      copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
+      with_fileglob:
+        - "{{ src }}/*"
