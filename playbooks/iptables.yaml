@@ -19,3 +19,7 @@
     - name: Save iptables configuration
       shell: "iptables-save > /etc/sysconfig/iptables"
       when: (op | trim == 'save')
+
+    - name: Restore iptables configuration
+      shell: "iptables-restore < /etc/sysconfig/iptables"
+      when: (op | trim == 'restore')
