@@ -2,7 +2,8 @@
 - name: Change iptables
 
   vars:
-    protocol: "{{ protocol | default('tcp') }}"
+    protocol: "{{ proto | default('tcp') }}"
+#    protocol: tcp
 
   hosts: "{{ host }}"
   become: true
