@@ -1,0 +1,25 @@
+---
+- name: Setup SSH key
+  hosts: "{{host}}"
+  become_user: "{{ user }}"
+  become: true
+
+  vars:
+    dest: "{{ ansible_env.HOME }}"
+    src: /home/ansible@cloud.local/ansible/ssh
+
+  tasks:
+    - command: "id -gn {{user}}"
+      register: gn
+    - set_fact: user_group="{{ gn.stdout }}"
+
+    - name: Create SSH folder
+#      file: path="{{ dest }}/.ssh" state=directory owner="{{ user }} group="{{ user_group }} mode=0700 recurse=yes
+      file: path="{{ dest }}/.ssh" state=directory mode=0700 recurse=yes
+
+    - name: Upload config files
+#      copy: src={{ item }} dest="{{ dest }}/.ssh" owner="{{ user }} group="{{ user_group }} mode=600
+      copy: src={{ item }} dest="{{ dest }}/.ssh" mode=600
+      with_fileglob:
+        - "{{ src }}/id_*"
+        - "{{ src }}/authorized_keys"
