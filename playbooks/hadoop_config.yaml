@@ -1,0 +1,35 @@
+---
+- name: Re-config HDFS Server
+  vars:
+    user: hdfs
+    dest: /opt/hdfs/hadoop-2.7.3
+    src: "/home/ansible@cloud.local/ansible/hdfs"
+
+  hosts: "{{host | default('journalnode:namenode:datanode')}}"
+  become_user: "{{ user }}"
+  become: true
+
+  tags: hdfs
+  tasks:
+    - name: Upload config files
+      copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
+      with_fileglob:
+        - "{{ src }}/*"
+
+- name: Re-config Zookeeper
+  vars:
+    user: root
+    dest: /etc/zookeeper
+    src: "/home/ansible@cloud.local/ansible/zookeeper"
+
+  hosts: zookeeper
+  become_user: "{{ user }}"
+  become: true
+
+  tags: zookeeper
+  tasks:
+    - name: Upload config files
+      copy: src={{ item }} dest="{{ dest }}/conf" owner="{{ user }}" mode=644
+      with_fileglob:
+        - "{{ src }}/*"
+
