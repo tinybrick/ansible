@@ -5,8 +5,8 @@
     src: "/home/ansible@cloud.local/ansible/hdfs"
     user: hdfs
 
-  hosts: "{{host | default('hdfs')}}"
-  become_user: "{{ user }}"
+  hosts: "{{host | default('journalnode:namenode:datanode')}}"
+  become_user: hdfs
   become: true
 
   tasks:
