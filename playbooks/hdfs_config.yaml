@@ -5,8 +5,9 @@
     src: "/home/ansible@cloud.local/ansible/hdfs"
     user: hdfs
 
-  hosts: hdfs
+  hosts: "{{host | default('hdfs')}}"
   become_user: "{{ user }}"
+  become: true
 
   tasks:
     - name: Upload config files
