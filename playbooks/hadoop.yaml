@@ -1,5 +1,5 @@
 ---
-- name: Zookeeper Management Script
+- name: HDFS Management Script
   hosts: zookeeper
   become: true
   tags: zookeeper
@@ -17,6 +17,7 @@
   - debug: var=status.stdout_lines
   - debug: var=status.stderr_lines
 
+
 - name: Journal node management
   hosts: journalnode
   become_user: hdfs
@@ -30,7 +31,6 @@
   tasks:
   - name: "{{op}} Journal Nodes"
     shell: "{{home}}/sbin/hadoop-daemon.sh {{op}} journalnode"
-    when: (op != 'status')
 
   - name: Status of Journal Nodes
     shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-journalnode-{{inventory_hostname}}.log"
@@ -38,4 +38,58 @@
 
   - debug: var=status.stdout_lines
   - debug: var=status.stderr_lines
+
+
+- name: ZKFC management
+  hosts: namenode
+  become_user: hdfs
+  become: true
+  tags: zkfc
+
+  vars:
+    home: /opt/hdfs/default
+    data_folder: /var/hdfs/data
+
+  tasks:
+  - name: "{{op}} ZKFC"
+    shell: "{{home}}/sbin/hadoop-daemon.sh {{op}} zkfc"
+
+  - name: Status of Journal Nodes
+    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-zkfc-{{inventory_hostname}}.log"
+    register: status
+
+  - debug: var=status.stdout_lines
+  - debug: var=status.stderr_lines
+
+
+- name: HDFS management
+  hosts: namenode[0]
+  become_user: hdfs
+  become: true
+  tags: hdfs
+
+  vars:
+    home: /opt/hdfs/default
+
+  tasks:
+  - name: "{{op}} HDFS"
+    shell: "{{home}}/sbin/{{op}}-dfs.sh"
+    register: status
+
+  - debug: var=status.stdout_lines
+  - debug: var=status.stderr_lines
+
+
+- name: Clean up
+  hosts: hdfs
+  become_user: hdfs
+  become: true
+  tags: logs
+
+  vars:
+    data: /var/hdfs/data
+
+  tasks:
+  - shell: "rm -rf {{data}}/logs/*"
+    when: (op == 'clean')
 

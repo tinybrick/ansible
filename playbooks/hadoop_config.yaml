@@ -16,6 +16,8 @@
       with_fileglob:
         - "{{ src }}/*"
 
+    - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
+
 - name: Re-config Zookeeper
   vars:
     user: root
