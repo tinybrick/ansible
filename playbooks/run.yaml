@@ -7,10 +7,9 @@
   vars_files:
     - "{{ playbook_dir }}/{{ script }}.vars.yaml"
 
-  - debug: msg "{{ src }}"
-
   hosts: "{{ target }}"
   become_user: "{{ executor }}"
+  become: true
 
   tasks:
     - set_fact: logfile="{{ inventory_hostname }}-{{lookup('pipe', 'date +%Y%m%d%H%M%S')}}.out"
