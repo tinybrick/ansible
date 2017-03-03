@@ -1,15 +1,53 @@
 ---
-- name: Re-config HDFS Server
+- name: Re-config name node
   vars:
     user: hdfs
-    dest: /opt/hdfs/hadoop-2.7.3
+    dest: /opt/hdfs/default
     src: "/home/ansible@cloud.local/ansible/hdfs"
 
-  hosts: "{{host | default('journalnode:namenode:datanode')}}"
+  hosts: namenode
   become_user: "{{ user }}"
   become: true
 
-  tags: hdfs
+  tags: nn
+  tasks:
+    - name: Upload config files
+      copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
+      with_fileglob:
+        - "{{ src }}/*"
+
+    - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
+
+- name: Re-config data node
+  vars:
+    user: hdfs
+    dest: /opt/hdfs/default
+    src: "/home/ansible@cloud.local/ansible/hdfs"
+
+  hosts: datanode
+  become_user: "{{ user }}"
+  become: true
+
+  tags: dn
+  tasks:
+    - name: Upload config files
+      copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
+      with_fileglob:
+        - "{{ src }}/*"
+
+    - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
+
+- name: Re-config data node
+  vars:
+    user: hdfs
+    dest: /opt/hdfs/default
+    src: "/home/ansible@cloud.local/ansible/hdfs"
+
+  hosts: journalnode
+  become_user: "{{ user }}"
+  become: true
+
+  tags: jn
   tasks:
     - name: Upload config files
       copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
