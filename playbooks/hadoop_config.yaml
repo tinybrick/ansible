@@ -1,59 +1,68 @@
 ---
-- name: Re-config name node
+- name: Re-config namenode
   vars:
+    service_name: namenode
     user: hdfs
     dest: /opt/hdfs/default
     src: "/home/ansible@cloud.local/ansible/hdfs"
 
-  hosts: namenode
+  hosts: "{{service_name}}"
   become_user: "{{ user }}"
   become: true
 
-  tags: nn
+  tags: "{{service_name}}"
   tasks:
     - name: Upload config files
       copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
       with_fileglob:
         - "{{ src }}/*"
 
+    - file: path="{{ dest }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
+    - file: path="{{ dest }}/etc/hadoop/hdfs.keytab" mode=0640
     - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
 
-- name: Re-config data node
+- name: Re-config datanode
   vars:
+    service_name: datanode
     user: hdfs
     dest: /opt/hdfs/default
     src: "/home/ansible@cloud.local/ansible/hdfs"
 
-  hosts: datanode
+  hosts: "{{service_name}}"
   become_user: "{{ user }}"
   become: true
 
-  tags: dn
+  tags: "{{service_name}}"
   tasks:
     - name: Upload config files
       copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
       with_fileglob:
         - "{{ src }}/*"
 
+    - file: path="{{ dest }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
+    - file: path="{{ dest }}/etc/hadoop/hdfs.keytab" mode=0640
     - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
 
-- name: Re-config data node
+- name: Re-config journamnode
   vars:
+    service_name: journalnode
     user: hdfs
     dest: /opt/hdfs/default
     src: "/home/ansible@cloud.local/ansible/hdfs"
 
-  hosts: journalnode
+  hosts: "{{service_name}}"
   become_user: "{{ user }}"
   become: true
 
-  tags: jn
+  tags: "{{service_name}}"
   tasks:
     - name: Upload config files
       copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
       with_fileglob:
         - "{{ src }}/*"
 
+    - file: path="{{ dest }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
+    - file: path="{{ dest }}/etc/hadoop/hdfs.keytab" mode=0640
     - file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
 
 - name: Re-config Zookeeper
