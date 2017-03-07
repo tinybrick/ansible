@@ -62,6 +62,54 @@
   - debug: var=status.stderr_lines
 
 
+- name: Namenode management
+  vars:
+    servicename: namenode
+    home: /opt/hdfs/default
+    kerberos_user: nn
+    data_folder: /var/hdfs/data
+
+  hosts: "{{servicename}}"
+  become_user: hdfs
+  become: true
+  tags: "{{servicename}}"
+
+  tasks:
+  - name: "{{op}} {{servicename}}"
+    shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{servicename}}"
+
+  - name: Status of Journal Nodes
+    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
+    register: status
+
+  - debug: var=status.stdout_lines
+  - debug: var=status.stderr_lines
+
+
+- name: Datanode management
+  vars:
+    servicename: datanode
+    kerberos_user: dn
+    home: /opt/hdfs/default
+    data_folder: /var/hdfs/data
+
+  hosts: "{{servicename}}"
+  become_user: hdfs
+  become: true
+  tags: "{{servicename}}"
+
+  tasks:
+  - name: "{{op}} {{servicename}}"
+    shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{servicename}}"
+
+  - name: Status of Journal Nodes
+    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
+    register: status
+
+  - debug: var=status.stdout_lines
+  - debug: var=status.stderr_lines
+
+
 - name: HDFS management
   hosts: namenode[0]
   become_user: hdfs
