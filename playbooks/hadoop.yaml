@@ -19,28 +19,6 @@
 
 
 - name: Journal node management
-  hosts: journalnode
-  become_user: hdfs
-  become: true
-  tags: journalnode
-
-  vars:
-    home: /opt/hdfs/default
-    data_folder: /var/hdfs/data
-
-  tasks:
-  - name: "{{op}} Journal Nodes"
-    shell: "{{home}}/sbin/hadoop-daemon.sh {{op}} journalnode"
-
-  - name: Status of Journal Nodes
-    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-journalnode-{{inventory_hostname}}.log"
-    register: status
-
-  - debug: var=status.stdout_lines
-  - debug: var=status.stderr_lines
-
-
-- name: ZKFC management
   vars:
     servicename: journalnode
     home: /opt/hdfs/default
@@ -54,9 +32,33 @@
 
   tasks:
   - name: "{{op}} {{servicename}}"
+    shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} journalnode"
+
+  - name: Status of {{servicename}}
+    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
+    register: status
+
+  - debug: var=status.stdout_lines
+  - debug: var=status.stderr_lines
+
+
+- name: ZKFC management
+  vars:
+    servicename: zkfc
+    home: /opt/hdfs/default
+    kerberos_user: nn
+    data_folder: /var/hdfs/data
+
+  hosts: "{{servicename}}"
+  become_user: hdfs
+  become: true
+  tags: "{{servicename}}"
+
+  tasks:
+  - name: "{{op}} {{servicename}}"
     shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{servicename}}"
 
-  - name: Status of Journal Nodes
+  - name: Status of {{servicename}}
     shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
     register: status
 
@@ -80,7 +82,7 @@
   - name: "{{op}} {{servicename}}"
     shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{servicename}}"
 
-  - name: Status of Journal Nodes
+  - name: Status of {{servicename}}
     shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
     register: status
 
