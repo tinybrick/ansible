@@ -41,21 +41,23 @@
 
 
 - name: ZKFC management
-  hosts: namenode
-  become_user: hdfs
-  become: true
-  tags: zkfc
-
   vars:
+    servicename: journalnode
     home: /opt/hdfs/default
+    kerberos_user: jn
     data_folder: /var/hdfs/data
 
+  hosts: "{{servicename}}"
+  become_user: hdfs
+  become: true
+  tags: "{{servicename}}"
+
   tasks:
-  - name: "{{op}} ZKFC"
-    shell: "{{home}}/sbin/hadoop-daemon.sh {{op}} zkfc"
+  - name: "{{op}} {{servicename}}"
+    shell: "HADOOP_USER_NAME={{kerberos_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{servicename}}"
 
   - name: Status of Journal Nodes
-    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-zkfc-{{inventory_hostname}}.log"
+    shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{servicename}}-{{inventory_hostname}}.log"
     register: status
 
   - debug: var=status.stdout_lines
