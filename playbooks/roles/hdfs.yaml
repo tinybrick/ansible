@@ -1,0 +1,6 @@
+- name: HDFS service
+  hosts: "{{service}}"
+  become_user: hdfs
+  become: true
+  roles:
+    - { role: hdfs }

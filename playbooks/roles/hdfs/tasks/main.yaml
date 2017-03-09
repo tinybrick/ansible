@@ -1,0 +1,2 @@
+- include: manipulate.yaml
+  when: (op == "start") or (op == "stop")

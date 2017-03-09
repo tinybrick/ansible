@@ -1,0 +1,17 @@
+---
+- set_fact: krb_user="jn"
+  when: service=='journalnode'
+- set_fact: krb_user="nn"
+  when: service=='namenode' or service=='zkfc'
+- set_fact: krb_user="dn"
+  when: service=='datanode'
+
+- name: "{{op}} {{service}}"
+  shell: "HADOOP_USER_NAME={{krb_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/hadoop-daemon.sh {{op}} {{service}}"
+
+- name: Status of {{service}}
+  shell: "tail -n 25 {{data_folder}}/logs/hadoop-hdfs-{{service}}-{{inventory_hostname}}.log"
+  register: status
+
+- debug: var=status.stdout_lines
+- debug: var=status.stderr_lines

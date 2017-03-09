@@ -1,0 +1,3 @@
+op: "{{operation}}" 
+home: /opt/hdfs/default
+data_folder: /var/hdfs/data
