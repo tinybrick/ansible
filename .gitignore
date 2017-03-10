@@ -1,3 +1,6 @@
 .idea/
 ansible.iml
 *.retry
+*.jks
+*.keytab
+hadoop-http-auth-signature-secret
