@@ -1,0 +1,5 @@
+- include: manipulate.yaml
+  when: (op == "start") or (op == "stop") or (op == "restart")
+- include: config.yaml
+  when: (op == "config")
+

@@ -1,0 +1,16 @@
+---
+- set_fact: stat="started"
+  when: op=='start'
+
+- set_fact: stat="stopped"
+  when: op=='stop'
+
+- set_fact: stat="restarted"
+  when: op=='restart'
+
+- set_fact: stat="reloaded"
+  when: op=='reload'
+
+- systemd:
+    name: "{{service}}"
+    state: "{{stat}}"
