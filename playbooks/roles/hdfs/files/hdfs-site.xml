@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <!-- Zookeeper config BEGIN -->
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>zookeeper1.cloud.local:2181,zookeeper2.cloud.local:2181,zookeeper3.cloud.local:2181</value>
+    </property>
+
+    <property>
+        <name>ha.zookeeper.acl</name>
+        <value>sasl:hdfs@CLOUD.LOCAL:rwcda</value>
+    </property>
+    <!-- Zookeeper config END -->
+
+    <!-- NameNode config BEGIN -->
+    <property>
+        <name>dfs.nameservices</name>
+        <value>hadoop1</value>
+    </property>
+
+
+    <!-- Federation:hadoop1 config -->
+    <property>
+        <name>dfs.ha.namenodes.hadoop1</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hadoop1.nn1</name>
+        <value>hdfs-nn1.cloud.local:9000</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.hadoop1.nn1</name>
+        <value>hdfs-nn1.cloud.local:50070</value>
+    </property>
+    
+    <property>
+        <name>dfs.namenode.rpc-address.hadoop1.nn2</name>
+        <value>hdfs-nn2.cloud.local:9000</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.hadoop1.nn2</name>
+        <value>hdfs-nn2.cloud.local:50070</value>
+    </property>
+    
+    <property>
+        <name>dfs.client.failover.proxy.provider.hadoop1</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+    <!-- Federation:hadoop1 config END -->
+
+
+    <!-- Comment config for namenodes -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///var/hdfs/data/name</value>
+    </property>
+    <!-- NameNode config END -->
+
+
+    <!-- ZKFC config BEGIN: -->
+    <!-- Failover config for federation:hadoop1 -->
+    <property>
+        <name>dfs.ha.automatic-failover.enabled.hadoop1</name>
+        <value>true</value>
+    </property>
+ 
+    <!-- For automatically failover, fencing must be setup. It will be involved by ZKFC daemon -->
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/home/hdfs@cloud.local/.ssh/id_rsa</value>
+    </property>
+    
+    <!-- The sshfence fencing method name a user and port, if different to the current one, to login to the dead server -->
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>sshfence</value>
+    </property>
+    
+    <property>
+        <name>dfs.ha.fencing.ssh.connect-timeout</name>
+        <value>30000</value>
+    </property>
+    <!-- The shell fencing method runs an arbitrary shell command -->
+    <!--
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>shell(/path/to/my/script.sh sendnotification restart ...)</value>
+    </property>
+    -->
+    <!-- ZKFC config END -->
+
+
+    <!-- JournalNode config BEGIN-->
+    <property>
+        <name>dfs.namenode.shared.edits.dir.hadoop1</name>
+        <value>qjournal://zookeeper1.cloud.local:8485;zookeeper2.cloud.local:8485;zookeeper3.cloud.local:8485/hadoop1</value>
+    </property>
+   
+    <!-- this value must be an absolutely path, don't start with file:// -->
+    <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/var/hdfs/data/journal</value>
+    </property>
+    <!-- JournalNode config END -->
+
+
+    <!-- DataNode config BEGIN -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///var/hdfs/data/data</value>
+    </property>
+    
+    <!-- Less or same to the number of DataNode hosts -->
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+    <!-- DataNode config END -->
+
+    <!-- WebHDFS -->
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.web.authentication.kerberos.keytab</name>
+        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+    </property>
+
+    <property>
+        <name>dfs.web.authentication.kerberos.principal</name>
+        <value>HTTP/_HOST@CLOUD.LOCAL</value>
+    </property>
+    <!-- WebHDFS -->
+
+    <!-- SSL -->
+    <property>
+        <name>dfs.https.port</name>
+        <value>50470</value>
+    </property>
+
+    <property>
+        <name>dfs.http.policy</name>
+        <value>HTTPS_ONLY</value>
+    </property>
+    <!-- SSL END -->
+
+    <!-- Authentication for Journal node -->
+    <property>
+        <name>dfs.journalnode.keytab.file</name>
+        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+     </property>
+ 
+    <property>
+        <name>dfs.journalnode.kerberos.principal</name>
+        <value>jn/_HOST@CLOUD.LOCAL</value>
+    </property>
+ 
+    <property>
+        <name>dfs.journalnode.kerberos.internal.spnego.principal</name>
+        <value>${dfs.web.authentication.kerberos.principal}</value>
+    </property> 
+    <!-- Authentication for Journal node END -->
+
+    <!-- Authentiction for NAMENODE -->
+    <property>
+        <name>dfs.block.access.token.enable</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <description> path to the HDFS keytab </description>
+        <name>dfs.namenode.keytab.file</name>
+        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+    </property>
+
+    <property>
+        <description>Kerberos principal name for the NameNode.</description>
+        <name>dfs.namenode.kerberos.principal</name>
+        <value>nn/_HOST@CLOUD.LOCAL</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.kerberos.internal.spnego.principal</name>
+        <value>${dfs.web.authentication.kerberos.principal}</value>
+    </property>
+    <!-- Authentication for NAMENODE END -->
+
+    <!-- Authenticaiton for DATANODE -->
+     <property>
+        <name>dfs.datanode.keytab.file</name> 
+        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value> 
+    </property>
+
+    <property> 
+        <name>dfs.datanode.kerberos.principal</name> 
+        <value>dn/_HOST@CLOUD.LOCAL</value> 
+    </property>
+
+    <!-- property> 
+        <name>dfs.datanode.kerberos.https.principal</name> 
+        <value>${dfs.web.authentication.kerberos.principal}</value> 
+    </property --> 
+
+    <property>
+        <name>dfs.datanode.data.dir.perm</name>
+        <value>700</value>
+    </property>
+
+    <property>
+        <name>dfs.data.transfer.protection</name>
+        <value>privacy</value>
+    </property>
+    <!-- Authentication for DATANODE END -->
+
+</configuration>

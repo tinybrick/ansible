@@ -1,0 +1,14 @@
+hdfs-nn1.cloud.local /dc1/rack1
+hdfs-nn1 /dc1/rack1
+
+hdfs-nn2.cloud.local /dc1/rack2
+hdfs-nn2 /dc1/rack2
+
+hdfs-dn1.cloud.local /dc1/rack1
+hdfs-dn1 /dc1/rack1
+
+hdfs-dn2.cloud.local /dc1/rack1
+hdfs-dn2 /dc1/rack1
+
+hdfs-dn3.cloud.local /dc1/rack2
+hdfs-dn3 /dc1/rack2

@@ -1,0 +1,8 @@
+- name: Upload config files
+  copy: src={{ item }} dest="{{ dest }}/etc/hadoop" owner="{{ user }}" mode=644
+  with_fileglob:
+    - "{{ src }}/*"
+
+- file: path="{{ dest }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
+- file: path="{{ dest }}/etc/hadoop/hdfs.keytab" mode=0640
+- file: path="{{ dest }}/etc/hadoop/rack_awareness.sh" mode=0750
