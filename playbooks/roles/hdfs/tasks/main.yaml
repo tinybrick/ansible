@@ -2,4 +2,5 @@
   when: (op == "start") or (op == "stop")
 - include: config.yaml
   when: (op == "config")
-
+- include: cleanup.yaml
+  when: (op == 'clean')

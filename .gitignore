@@ -1,4 +1,5 @@
 .idea/
+logs/
 ansible.iml
 *.retry
 *.jks
