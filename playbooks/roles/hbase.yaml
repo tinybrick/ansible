@@ -1,0 +1,6 @@
+- name: HBase service
+  hosts: "h{{service}}"
+  become_user: "{{user}}"
+  become: true
+  roles:
+    - { role: hbase }

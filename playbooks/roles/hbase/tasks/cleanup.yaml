@@ -1,0 +1,1 @@
+- shell: "rm -rf {{data_folder}}/logs/*"

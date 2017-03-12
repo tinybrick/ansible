@@ -1,0 +1,8 @@
+---
+#- name: "op service"
+- debug: msg="START HBASE MASTER ON {{inventory_hostname}}"
+  when: inventory_hostname=="hdfs-nn1.cloud.local"
+
+#- name: "op service"
+- debug: msg="START HBASE MASTER ON {{inventory_hostname}}"
+  when: inventory_hostname=="hdfs-nn2.cloud.local"

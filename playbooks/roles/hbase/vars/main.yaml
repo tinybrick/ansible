@@ -1,0 +1,5 @@
+op: "{{operation}}" 
+user: hbase
+home: /opt/hbase/default
+data_folder: /var/hbase/data
+src: "{{ role_path }}/files"
