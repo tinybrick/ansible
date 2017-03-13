@@ -19,7 +19,6 @@
 
 # Set environment variables here.
 export HADOOP_HOME=/opt/hdfs/default
-export HBASE_OPTS="-XX:+UseConcMarkSweepGC"
 export JAVA_HOME=/usr/java/default
 export HBASE_HOME=/opt/hbase/default
 export HBASE_MANAGES_ZK=false
