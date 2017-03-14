@@ -234,4 +234,10 @@
     </property>
     <!-- Authentication for DATANODE END -->
 
+    <!-- ACL Setting -->
+    <property>
+        <name>dfs.namenode.acls.enabled</name>
+        <value>true</value>
+    </property>
+    <!-- ACL Setting END -->
 </configuration>

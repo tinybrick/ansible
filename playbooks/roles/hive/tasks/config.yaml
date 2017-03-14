@@ -1,0 +1,4 @@
+- name: Upload config files
+  copy: src={{ item }} dest="{{ home }}/conf" owner="{{ user }}" mode=644
+  with_fileglob:
+    - "{{ src }}/*"

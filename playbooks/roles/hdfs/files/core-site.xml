@@ -67,7 +67,7 @@
     </property>
 
     <!-- Web -->
-    <!--
+    <!-- 
     <property>
         <name>hadoop.http.authentication.type</name>
         <value>kerberos</value>

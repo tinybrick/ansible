@@ -1,0 +1,5 @@
+op: "{{operation}}" 
+user: hive
+home: /opt/hive/default
+data_folder: /var/hive/data
+src: "{{ role_path }}/files"

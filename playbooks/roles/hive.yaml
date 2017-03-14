@@ -1,0 +1,6 @@
+- name: Hive service
+  hosts: "{{service}}"
+  become_user: "{{user}}"
+  become: true
+  roles:
+    - { role: hive }

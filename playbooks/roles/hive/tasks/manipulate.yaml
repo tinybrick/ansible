@@ -1,0 +1,8 @@
+---
+- set_fact: manipulate="&"
+  when: op=='start'
+- set_fact: manipulate="--stop"
+  when: op=='stop'
+
+- name: "{{op}} {{service}}"
+  shell: "{{home}}/bin/hive --service {{service}} {{manipulate}}"
