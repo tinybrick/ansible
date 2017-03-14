@@ -203,7 +203,7 @@
     <!-- SSL For Rest -->
 
     <!-- SSL For Thrift -->
-    <!-- property>
+    <property>
         <name>hbase.thrift.ssl.enabled</name>
         <value>true</value>
     </property>
@@ -221,7 +221,7 @@
     <property>
         <name>hbase.thrift.ssl.keystore.keypassword</name>
         <value>123456</value>
-    </property -->
+    </property>
     <!-- SSL For Thrift -->
 
 </configuration>
