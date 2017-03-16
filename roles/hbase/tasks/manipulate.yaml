@@ -1,4 +1,3 @@
 ---
 - name: "{{op}} {{service}}"
   shell: "nohup {{home}}/bin/hbase-daemon.sh {{op}} {{service}}"
-#  when: inventory_hostname=="hdfs-nn1.cloud.local"

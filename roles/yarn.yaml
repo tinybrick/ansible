@@ -1,0 +1,8 @@
+- name: YARN service
+  vars_files:
+    - "{{ role_path }}/vars/{{service}}.yaml"
+  hosts: "{{service}}"
+  become_user: "{{user}}"
+  become: true
+  roles:
+    - { role: yarn }

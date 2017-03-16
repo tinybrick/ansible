@@ -1,0 +1,13 @@
+---
+- set_fact: krb_user="yarn"
+  when: (service=='resourcemanager') or (service=='nodemanager')
+- set_fact: krb_user="mapred"
+  when: service=='historyserver'
+
+- name: "{{op}} {{service}}"
+  shell: "HADOOP_USER_NAME={{krb_user}}/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/sbin/yarn-daemon.sh {{op}} {{service}}"
+  when: (service == 'resourcemanager') or (service=='nodemanager')
+
+- name: "{{op}} {{service}}"
+  shell: "{{home}}/sbin/mr-jobhistory-daemon.sh {{op}} {{service}}"
+  when: (service == 'historyserver')

@@ -1,3 +1,8 @@
+- name: Upload shared config files
+  copy: src={{ item }} dest="{{ dest }}/conf" owner="{{ user }}" mode=644
+  with_fileglob:
+    - "{{ role_path }}/../shared/keys/hdfs.keytab"
+
 - name: Upload config files
   copy: src={{ item }} dest="{{ dest }}/conf" owner="{{ user }}" mode=644
   with_fileglob:

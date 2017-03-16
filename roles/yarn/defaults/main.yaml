@@ -1,0 +1,5 @@
+op: "{{operation}}" 
+user:
+home: "/opt/{{user}}/default"
+data_folder: /var/yarn
+src: "{{ role_path }}/files"

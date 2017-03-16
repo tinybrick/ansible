@@ -7,13 +7,11 @@
   with_fileglob:
     - "{{role_path}}/../shared/keys/*.jks"
     - "{{role_path}}/../shared/keys/*.keytab"
-    - "{{role_path}}/../shared/keys/hadoop-http-auth-signature-secret"
+    - "{{role_path}}/../shared/keys/*.secret"
 
 - name: Upload individual config files
   copy: src={{ item }} dest="{{ home }}/etc/hadoop" owner="{{ user }}" mode=644
   with_fileglob:
     - "{{ src }}/*"
 
-- file: path="{{ home }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
 - file: path="{{ home }}/etc/hadoop/hdfs.keytab" mode=0640
-- file: path="{{ home }}/etc/hadoop/rack_awareness.sh" mode=0750
