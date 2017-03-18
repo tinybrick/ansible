@@ -20,7 +20,7 @@
     <!-- Zookeeper config BEGIN -->
     <property>
         <name>ha.zookeeper.quorum</name>
-        <value>zookeeper1.cloud.local:2181,zookeeper2.cloud.local:2181,zookeeper3.cloud.local:2181</value>
+        <value>hadoop01.cloud.local:2181,hadoop02.cloud.local:2181,hadoop03.cloud.local:2181</value>
     </property>
 
     <property>
@@ -44,22 +44,22 @@
 
     <property>
         <name>dfs.namenode.rpc-address.hadoop1.nn1</name>
-        <value>hdfs-nn1.cloud.local:9000</value>
+        <value>hadoop01.cloud.local:9000</value>
     </property>
 
     <property>
         <name>dfs.namenode.http-address.hadoop1.nn1</name>
-        <value>hdfs-nn1.cloud.local:50070</value>
+        <value>hadoop01.cloud.local:50070</value>
     </property>
     
     <property>
         <name>dfs.namenode.rpc-address.hadoop1.nn2</name>
-        <value>hdfs-nn2.cloud.local:9000</value>
+        <value>hadoop02.cloud.local:9000</value>
     </property>
 
     <property>
         <name>dfs.namenode.http-address.hadoop1.nn2</name>
-        <value>hdfs-nn2.cloud.local:50070</value>
+        <value>hadoop02.cloud.local:50070</value>
     </property>
     
     <property>
@@ -72,7 +72,7 @@
     <!-- Comment config for namenodes -->
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:///var/hdfs/data/name</value>
+        <value>file:///var/hdfs/name</value>
     </property>
     <!-- NameNode config END -->
 
@@ -113,13 +113,13 @@
     <!-- JournalNode config BEGIN-->
     <property>
         <name>dfs.namenode.shared.edits.dir.hadoop1</name>
-        <value>qjournal://zookeeper1.cloud.local:8485;zookeeper2.cloud.local:8485;zookeeper3.cloud.local:8485/hadoop1</value>
+        <value>qjournal://hadoop01.cloud.local:8485;hadoop02.cloud.local:8485;hadoop03.cloud.local:8485/hadoop1</value>
     </property>
    
     <!-- this value must be an absolutely path, don't start with file:// -->
     <property>
         <name>dfs.journalnode.edits.dir</name>
-        <value>/var/hdfs/data/journal</value>
+        <value>/var/hdfs/journal</value>
     </property>
     <!-- JournalNode config END -->
 
@@ -127,7 +127,7 @@
     <!-- DataNode config BEGIN -->
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///var/hdfs/data/data</value>
+        <value>file:///var/hdfs/data</value>
     </property>
     
     <!-- Less or same to the number of DataNode hosts -->
@@ -145,7 +145,7 @@
 
     <property>
         <name>dfs.web.authentication.kerberos.keytab</name>
-        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <property>
@@ -169,7 +169,7 @@
     <!-- Authentication for Journal node -->
     <property>
         <name>dfs.journalnode.keytab.file</name>
-        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value>
      </property>
  
     <property>
@@ -192,7 +192,7 @@
     <property>
         <description> path to the HDFS keytab </description>
         <name>dfs.namenode.keytab.file</name>
-        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/hdfs/default/etc/hadoop/hadppo.keytab</value>
     </property>
 
     <property>
@@ -210,7 +210,7 @@
     <!-- Authenticaiton for DATANODE -->
      <property>
         <name>dfs.datanode.keytab.file</name> 
-        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value> 
+        <value>/opt/hdfs/default/etc/hadoop/hadppo.keytab</value> 
     </property>
 
     <property> 

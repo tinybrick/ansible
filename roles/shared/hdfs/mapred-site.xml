@@ -55,7 +55,7 @@
 
     <property>
         <name>mapreduce.jobhistory.keytab</name>
-        <value>/opt/yarn/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/yarn/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <property>

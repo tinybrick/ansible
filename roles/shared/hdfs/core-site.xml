@@ -95,7 +95,7 @@
 
     <property>
         <name>hadoop.http.authentication.kerberos.keytab</name>
-        <value>/opt/hdfs/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <property>

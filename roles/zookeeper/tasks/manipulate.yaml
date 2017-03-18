@@ -8,9 +8,12 @@
 - set_fact: stat="restarted"
   when: op=='restart'
 
-- set_fact: stat="reloaded"
-  when: op=='reload'
+#- set_fact: stat="reloaded"
+#  when: op=='reload'
 
-- systemd:
-    name: "{{service}}"
-    state: "{{stat}}"
+#- systemd:
+#    name: "{{service}}"
+#    state: "{{stat}}"
+
+- name: "{{op}} {{service}}"
+  shell: "cd /var/zookeeper/logs; /opt/zookeeper/default/bin/zkServer.sh {{op}}"

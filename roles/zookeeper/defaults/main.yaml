@@ -1,4 +1,4 @@
 service: zookeeper
-user: root
-dest: /etc/zookeeper
+user: zookeeper
+dest: /opt/zookeeper/default
 src: "{{ role_path }}/files"

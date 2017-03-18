@@ -1,9 +1,9 @@
 - name: Upload shared config files
-  copy: src={{ item }} dest="{{ dest }}/conf" owner="{{ user }}" mode=644
+  copy: src={{ item }} dest="{{ dest }}/conf" mode=644
   with_fileglob:
-    - "{{ role_path }}/../shared/keys/hdfs.keytab"
+    - "{{ role_path }}/../shared/keys/hadoop.keytab"
 
 - name: Upload config files
-  copy: src={{ item }} dest="{{ dest }}/conf" owner="{{ user }}" mode=644
+  copy: src={{ item }} dest="{{ dest }}/conf" mode=644
   with_fileglob:
     - "{{ src }}/*"

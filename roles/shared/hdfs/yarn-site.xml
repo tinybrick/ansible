@@ -30,12 +30,12 @@
 
     <property>
         <name>yarn.resourcemanager.hostname.rm1</name>
-        <value>hdfs-nn1.cloud.local</value>
+        <value>hadoop01.cloud.local</value>
     </property>
 
     <property>
         <name>yarn.resourcemanager.hostname.rm2</name>
-        <value>hdfs-nn2.cloud.local</value>
+        <value>hadoop02.cloud.local</value>
     </property>
 
     <property>
@@ -102,7 +102,7 @@
     <!-- Zookeeper -->
     <property>
         <name>yarn.resourcemanager.zk-address</name>
-        <value>zookeeper1.cloud.local:2181,zookeeper2.cloud.local:2181,zookeeper3.cloud.local:2181</value>
+        <value>hadoop01.cloud.local:2181,hadoop02.cloud.local:2181,hadoop03.cloud.local:2181</value>
     </property>
 
     <property>
@@ -197,7 +197,7 @@
 
     <property>
         <name>yarn.resourcemanager.keytab</name>
-        <value>/opt/yarn/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/yarn/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <property>
@@ -207,18 +207,18 @@
 
     <property>
         <name>yarn.nodemanager.keytab</name>
-        <value>/opt/yarn/default/etc/hadoop/hdfs.keytab</value>
+        <value>/opt/yarn/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <!-- property>
         <name>yarn.nodemanager.container-executor.class</name>
         <value>org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor</value>
-    </property -->
+    </property>
 
     <property>
         <name>yarn.nodemanager.linux-container-executor.group</name>
         <value>1179001711</value>
-    </property>
+    </property -->
 
     <!-- To enable TLS/SSL -->
     <property>
