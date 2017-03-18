@@ -3617,7 +3617,7 @@
   </property>
   <property>
     <name>hive.server2.webui.spnego.keytab</name>
-    <value>/opt/hdfs/default/conf/hdfs.keytab</value>
+    <value>/opt/hdfs/default/conf/hadoop.keytab</value>
     <description>The path to the Kerberos Keytab file containing the HiveServer2 WebUI SPNEGO service principal.</description>
   </property>
   <property>

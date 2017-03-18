@@ -14,4 +14,4 @@
   with_fileglob:
     - "{{ src }}/*"
 
-- file: path="{{ home }}/etc/hadoop/hdfs.keytab" mode=0640
+- file: path="{{ home }}/etc/hadoop/hadoop.keytab" mode=0640

@@ -29,8 +29,8 @@ export HADOOP_JAAS_DEBUG=true
 #export JAVA_HOME=${JAVA_HOME}
 export JAVA_HOME=/usr/java/default
 export HADOOP_HOME=/opt/hdfs/default
-export HADOOP_LOG_DIR=/var/hdfs/data/logs
-export HADOOP_PID_DIR=/var/hdfs/data/logs
+export HADOOP_LOG_DIR=/var/hdfs/logs
+export HADOOP_PID_DIR=/var/hdfs/logs
 #export HADOOP_OPTS="$HADOOP_OPTS"
 export HADOOP_OPTS="$HADOOP_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dsun.security.spnego.debug=true -Dsun.security.jgss.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true -Djava.security.debug=gssloginconfig,configfile,configparser,logincontext"
 
