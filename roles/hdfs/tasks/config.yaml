@@ -15,5 +15,5 @@
     - "{{ src }}/*"
 
 - file: path="{{ home }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
-- file: path="{{ home }}/etc/hadoop/hdfs.keytab" mode=0640
+- file: path="{{ home }}/etc/hadoop/hadoop.keytab" mode=0640
 - file: path="{{ home }}/etc/hadoop/rack_awareness.sh" mode=0750
