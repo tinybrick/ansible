@@ -113,7 +113,7 @@
     <!-- JournalNode config BEGIN-->
     <property>
         <name>dfs.namenode.shared.edits.dir.hadoop1</name>
-        <value>qjournal://hadoop01.cloud.local:8485;hadoop02.cloud.local:8485;hadoop03.cloud.local:8485/hadoop1</value>
+        <value>qjournal://hadoop04.cloud.local:8485;hadoop05.cloud.local:8485;hadoop06.cloud.local:8485/hadoop1</value>
     </property>
    
     <!-- this value must be an absolutely path, don't start with file:// -->
