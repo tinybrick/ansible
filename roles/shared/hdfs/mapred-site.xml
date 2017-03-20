@@ -37,11 +37,15 @@
         <value>0.0.0.0:50060</value>
     </property -->
 
-    <!-- MapReduce v1 的 HTTP 端口 -->
     <!-- property>
         <name>mapreduce.jobtracker.http.address</name>
         <value>0.0.0.0:50030</value>
     </property -->
+
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
 
     <property>
     	<name>mapreduce.jobhistory.admin.acl</name>
@@ -65,7 +69,7 @@
 
     <property>
         <name>yarn.app.mapreduce.am.staging-dir</name>
-        <value>/user/mapred</value>
+        <value>/user/yarn</value>
     </property>
 
     <property>
@@ -80,7 +84,7 @@
 
     <property>
     	<name>hadoop.tmp.dir</name>
-    	<value>/var/mapred/temp</value>
+    	<value>/var/yarn/temp</value>
     </property>
 
 </configuration>

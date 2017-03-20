@@ -176,7 +176,7 @@
 
     <property>
         <name>yarn.nodemanager.remote-app-log-dir</name>
-        <value>/user/yarn/logs</value>
+        <value>hdfs://hadoop1/user/yarn/logs</value>
     </property>
 
     <property>

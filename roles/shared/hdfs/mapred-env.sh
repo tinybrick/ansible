@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 export JAVA_HOME=/usr/java/default
-export HADOOP_HOME=/opt/mapred/default
+export HADOOP_HOME=/opt/yarn/default
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-export HADOOP_MAPRED_LOG_DIR=/var/mapred/logs
-export HADOOP_MAPRED_PID_DIR=/var/mapred/temp
+export HADOOP_MAPRED_LOG_DIR=/var/yarn/logs
+export HADOOP_MAPRED_PID_DIR=/var/yarn/temp
 
-# export JAVA_HOME=/home/y/libexec/jdk1.6.0/
+# export JAVA_HOME=/home/libexec/jdk1.6.0/
 
 export HADOOP_JOB_HISTORYSERVER_HEAPSIZE=1000
 
