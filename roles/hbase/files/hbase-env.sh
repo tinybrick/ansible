@@ -22,8 +22,8 @@ export HADOOP_HOME=/opt/hdfs/default
 export JAVA_HOME=/usr/java/default
 export HBASE_HOME=/opt/hbase/default
 export HBASE_MANAGES_ZK=false
-export HBASE_LOG_DIR=/var/hbase/data/logs
-export HBASE_PID_DIR=/var/hbase/data/logs
+export HBASE_LOG_DIR=/var/hbase/logs
+export HBASE_PID_DIR=/var/hbase/logs
 
 export HBASE_OPTS="${HBASE_OPTS} -Djava.security.auth.login.config=${HBASE_HOME}/conf/jaas.conf -Dsun.security.krb5.debug=true"
 #export HBASE_ZOOKEEPER_OPTS="-Djava.security.auth.login.config=${HBASE_HOME}/conf/jaas.conf -Dsun.security.krb5.debug=true"

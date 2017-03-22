@@ -14,7 +14,8 @@ while [ $# -gt 0 ] ; do
   done
   shift
   if [ -z "$result" ] ; then
-    echo -n "/default/rack"
+    echo "/$1"
+#    echo -n "/default/rack"
   else
     echo "$result"
   fi

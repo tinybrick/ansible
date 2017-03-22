@@ -44,7 +44,7 @@
     <!-- Zookeeper -->
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>zookeeper1.cloud.local,zookeeper2.cloud.local,zookeeper3.cloud.local</value>
+        <value>hadoop01.cloud.local,hadoop02.cloud.local,hadoop03.cloud.local</value>
     </property>
 
     <property>
@@ -77,8 +77,8 @@
     <!-- Kerberos keytab for HDFS -->
     <property>
         <name>hbase.security.authentication</name>
-        <!-- value>kerberos</value --> 
-        <value>simple</value> 
+        <value>kerberos</value> 
+        <!-- value>simple</value --> 
     </property>  
 
     <property>
@@ -105,7 +105,7 @@
 
     <property> 
         <name>hbase.regionserver.keytab.file</name> 
-        <value>/opt/hbase/default/conf/hbase.keytab</value> 
+        <value>/opt/hbase/default/conf/hadoop.keytab</value> 
     </property>
 
     <property> 
@@ -115,7 +115,7 @@
 
     <property> 
         <name>hbase.master.keytab.file</name> 
-        <value>/opt/hbase/default/conf/hbase.keytab</value> 
+        <value>/opt/hbase/default/conf/hadoop.keytab</value> 
     </property>
 
     <property>
@@ -130,7 +130,7 @@
 
     <property>
         <name>hbase.rest.authentication.kerberos.keytab</name>
-        <value>/opt/hbase/default/conf/hbase.keytab</value>
+        <value>/opt/hbase/default/conf/hadoop.keytab</value>
     </property>
 
     <property>
@@ -140,7 +140,7 @@
 
     <property>
         <name>hbase.rest.keytab.file</name>
-        <value>/opt/hbase/default/conf/hbase.keytab</value>
+        <value>/opt/hbase/default/conf/hadoop.keytab</value>
     </property>
 
     <property>    
@@ -177,6 +177,22 @@
     <property>
         <name>hadoop.ssl.enabled</name>
         <value>true</value>
+    </property>
+
+    <property>
+        <name>hbase.security.authentication.ui</name>
+        <!-- value>kerberos</value -->
+        <value>simple</value>
+    </property>
+
+    <property>
+        <name>hbase.security.authentication.spnego.kerberos.principal</name>
+        <value>HTTP/_HOST@CLOUD.LOCAL</value>
+    </property>
+
+    <property>
+        <name>hbase.security.authentication.spnego.kerberos.keytab</name>
+        <value>/opt/hbase/default/conf/hadoop.keytab</value>
     </property>
     <!-- SSLL For WEB UI END -->
 

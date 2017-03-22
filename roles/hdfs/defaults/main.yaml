@@ -1,5 +1,5 @@
 op: "{{operation}}" 
 user: hdfs
 home: /opt/hdfs/default
-data_folder: /var/hdfs/data
+data_folder: /var/hdfs
 src: "{{ role_path }}/files"

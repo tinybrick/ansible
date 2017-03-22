@@ -32,15 +32,15 @@
     	<value>/opt/hdfs/default/etc/hadoop/rack_awareness.sh</value>
     </property>
 
-    <property>
+    <!-- property>
         <name>net.topology.node.switch.mapping.impl</name>
         <value>org.apache.hadoop.net.ScriptBasedMapping</value>
-    </property>
+    </property -->
     
-    <!-- property>
+    <property>
     	<name>net.topology.impl</name>
     	<value>org.apache.hadoop.net.NetworkTopology</value>
-    </property -->
+    </property>
 
     <!-- property>
         <name>hadoop.proxyuser.knox.groups</name>
