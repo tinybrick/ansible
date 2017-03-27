@@ -1,3 +1,4 @@
 ---
 - name: "{{op}} {{service}}"
-  shell: "nohup {{home}}/bin/hbase-daemon.sh {{op}} {{service}}"
+#  shell: "HADOOP_USER_NAME=hbase/{{inventory_hostname}}@CLOUD.LOCAL {{home}}/bin/local-{{service}}-backup.sh {{op}} 1"
+  shell: "HADOOP_USER_NAME=hbase nohup {{home}}/bin/hbase-daemon.sh {{op}} {{service}}"

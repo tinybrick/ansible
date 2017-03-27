@@ -75,7 +75,7 @@
     <!-- 
     <property>
         <name>hadoop.http.authentication.type</name>
-        <value>kerberos</value>
+        <value>simple</value>
     </property>
 
     <property>
@@ -109,5 +109,15 @@
     </property>
     -->
     <!-- WEB END -->
+
+    <property>
+        <name>hadoop.proxyuser.hive.hosts</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.hive.groups</name>
+        <value>*</value>
+    </property>
 
 </configuration>

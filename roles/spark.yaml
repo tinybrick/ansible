@@ -1,0 +1,6 @@
+- name: Spark service
+  hosts: "spark-{{service}}"
+  become_user: "{{user}}"
+  become: true
+  roles:
+    - { role: spark }

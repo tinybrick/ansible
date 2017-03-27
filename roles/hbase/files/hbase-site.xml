@@ -77,8 +77,8 @@
     <!-- Kerberos keytab for HDFS -->
     <property>
         <name>hbase.security.authentication</name>
-        <value>kerberos</value> 
-        <!-- value>simple</value --> 
+        <!-- value>kerberos</value --> 
+        <value>simple</value> 
     </property>  
 
     <property>
@@ -97,6 +97,11 @@
         <name>hbase.coprocessor.master.classes</name>
         <value>org.apache.hadoop.hbase.security.access.AccessController</value>
     </property>
+
+    <property> 
+        <name>hbase.coprocessor.regionserver.classes</name> 
+        <value>org.apache.hadoop.hbase.security.access.AccessController</value> 
+    </property> 
 
     <property>
         <name>hbase.regionserver.kerberos.principal</name> 

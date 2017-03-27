@@ -5,4 +5,4 @@
   when: op=='stop'
 
 - name: "{{op}} {{service}}"
-  shell: "{{home}}/bin/hive --service {{service}} {{manipulate}}"
+  shell: "HADOOP_USER_NAME=hive/{{inventory_hostname}}@CLOUD.LOCAL nohup {{home}}/bin/hive --service {{service}} {{manipulate}}"

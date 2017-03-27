@@ -2,8 +2,6 @@
   copy: src={{ item }} dest="{{ home }}/conf" owner="{{ user }}" mode=644
   with_fileglob:
     - "{{ role_path }}/../shared/keys/hadoop.jks"
-
-- name: Upload config files
-  copy: src={{ item }} dest="{{ home }}/conf" owner="{{ user }}" mode=644
-  with_fileglob:
+    - "{{ role_path }}/../shared/keys/hadoop.keytab"
+    - "{{ role_path }}/../spark/files/spark-defaults.conf"
     - "{{ src }}/*"

@@ -330,7 +330,7 @@
   </property>
   <property>
     <name>hive.metastore.uris</name>
-    <value/>
+    <value>thrift://hadoop01.cloud.local:9083,thrift://hadoop02.cloud.local:9083</value>
     <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
   </property>
   <property>
@@ -578,12 +578,12 @@
   </property>
   <property>
     <name>hive.metastore.kerberos.keytab.file</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>The path to the Kerberos Keytab file containing the metastore Thrift server's service principal.</description>
   </property>
   <property>
     <name>hive.metastore.kerberos.principal</name>
-    <value>hive-metastore/_HOST@EXAMPLE.COM</value>
+    <value>hive/_HOST@CLOUD.LOCAL</value>
     <description>
       The service principal for the metastore Thrift server. 
       The special string _HOST will be replaced automatically with the correct host name.
@@ -591,6 +591,7 @@
   </property>
   <property>
     <name>hive.metastore.sasl.enabled</name>
+    <!-- value>true</value -->
     <value>false</value>
     <description>If true, the metastore Thrift interface will be secured with SASL. Clients must authenticate with Kerberos.</description>
   </property>
@@ -614,7 +615,8 @@
   </property>
   <property>
     <name>hive.cluster.delegation.token.store.class</name>
-    <value>org.apache.hadoop.hive.thrift.MemoryTokenStore</value>
+    <!-- value>org.apache.hadoop.hive.thrift.MemoryTokenStore</value -->
+    <value>org.apache.hadoop.hive.thrift.ZooKeeperTokenStore</value>
     <description>The delegation token store implementation. Set to org.apache.hadoop.hive.thrift.ZooKeeperTokenStore for load-balanced cluster.</description>
   </property>
   <property>
@@ -637,7 +639,7 @@
   </property>
   <property>
     <name>hive.cluster.delegation.token.store.zookeeper.acl</name>
-    <value>sasl:hive@CLOUD.LOCAL:cdrwa</value>
+    <value>sasl:hive/dc.cloud.local@CLOUD.LOCAL:cdrwa</value>
     <description>
       ACL for token store entries. Comma separated list of ACL entries. For example:
       sasl:hive/host1@MY.DOMAIN:cdrwa,sasl:hive/host2@MY.DOMAIN:cdrwa
@@ -2727,7 +2729,7 @@
   </property>
   <property>
     <name>hive.zookeeper.quorum</name>
-    <value>zookeeper1.cloud.local:2181,zookeeper2.cloud.local:2181,zookeeper3.cloud.local:2181</value>
+    <value>hadoop01.cloud.local:2181,hadoop02.cloud.local:2181,hadoop03.cloud.local:2181</value>
     <description>
       List of ZooKeeper servers to talk to. This is needed for: 
       1. Read/write locks - when hive.lock.manager is set to 
@@ -3202,7 +3204,7 @@
   </property>
   <property>
     <name>hive.security.authorization.createtable.owner.grants</name>
-    <value/>
+    <value>ALL</value>
     <description>
       The privileges automatically granted to the owner whenever a table gets created.
       An example like "select,drop" will grant select and drop privilege to the owner
@@ -3524,12 +3526,12 @@
   </property>
   <property>
     <name>hive.server2.support.dynamic.service.discovery</name>
-    <value>false</value>
+    <value>true</value>
     <description>Whether HiveServer2 supports dynamic service discovery for its clients. To support this, each instance of HiveServer2 currently uses ZooKeeper to register itself, when it is brought up. JDBC/ODBC clients should use the ZooKeeper ensemble: hive.zookeeper.quorum in their connection string.</description>
   </property>
   <property>
     <name>hive.server2.zookeeper.namespace</name>
-    <value>hiveserver2</value>
+    <value>hive/hiveserver2</value>
     <description>The parent node in ZooKeeper used by HiveServer2 when supporting dynamic service discovery.</description>
   </property>
   <property>
@@ -3617,7 +3619,7 @@
   </property>
   <property>
     <name>hive.server2.webui.spnego.keytab</name>
-    <value>/opt/hdfs/default/conf/hadoop.keytab</value>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>The path to the Kerberos Keytab file containing the HiveServer2 WebUI SPNEGO service principal.</description>
   </property>
   <property>
@@ -3691,6 +3693,16 @@
     <value>true</value>
     <description>When true, HS2 will save operation logs and make them available for clients</description>
   </property>
+
+  <property>
+    <name>system:java.io.tmpdir</name>
+    <value>/var/hive/temp</value>
+  </property>
+  <property>
+    <name>system:user.name</name>
+    <value>hive</value>
+  </property>
+
   <property>
     <name>hive.server2.logging.operation.log.location</name>
     <!-- value>${system:java.io.tmpdir}/${system:user.name}/operation_logs</value -->
@@ -3899,9 +3911,9 @@
     <value/>
     <description>Classname for custom implementation of hive session with UGI</description>
   </property>
-  <property>
+  <!-- property>
     <name>hive.server2.authentication</name>
-    <value>NONE</value>
+    <value>KERBEROS</value>
     <description>
       Expects one of [nosasl, none, ldap, kerberos, pam, custom].
       Client authentication types.
@@ -3913,7 +3925,7 @@
         PAM: Pluggable authentication module
         NOSASL:  Raw transport
     </description>
-  </property>
+  </property -->
   <property>
     <name>hive.server2.allow.user.substitution</name>
     <value>true</value>
@@ -3921,17 +3933,17 @@
   </property>
   <property>
     <name>hive.server2.authentication.kerberos.keytab</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>Kerberos keytab file for server principal</description>
   </property>
   <property>
     <name>hive.server2.authentication.kerberos.principal</name>
-    <value/>
+    <value>hive/_HOST@CLOUD.LOCAL</value>
     <description>Kerberos server principal</description>
   </property>
   <property>
     <name>hive.server2.authentication.spnego.keytab</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>
       keytab file for SPNego principal, optional,
       typical value would look like /etc/security/keytabs/spnego.service.keytab,
@@ -4096,12 +4108,12 @@
   </property>
   <property>
     <name>hive.server2.keystore.path</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.jks</value>
     <description>SSL certificate keystore location.</description>
   </property>
   <property>
     <name>hive.server2.keystore.password</name>
-    <value/>
+    <value>123456</value>
     <description>SSL certificate keystore password.</description>
   </property>
   <property>
@@ -4880,7 +4892,7 @@
   </property>
   <property>
     <name>hive.llap.daemon.keytab.file</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>The path to the Kerberos Keytab file containing the LLAP daemon's service principal.</description>
   </property>
   <property>
@@ -4890,7 +4902,7 @@
   </property>
   <property>
     <name>hive.llap.zk.sm.keytab.file</name>
-    <value/>
+    <value>/opt/hive/default/conf/hadoop.keytab</value>
     <description>
       The path to the Kerberos Keytab file containing the principal to use to talk to
       ZooKeeper for ZooKeeper SecretManager.
@@ -5294,7 +5306,7 @@
   <property>
     <name>hive.spark.client.rpc.server.address</name>
     <value/>
-    <!-- value>spark1.cloud.local</value -->
+    <!-- value>hadoop01.cloud.local:7077,hadoop02.cloud.local:7077</value -->
     <description>The server address of HiverServer2 host to be used for communication between Hive client and remote Spark driver. Default is empty, which means the address will be determined in the same way as for hive.server2.thrift.bind.host.This is only necessary if the host has mutiple network addresses and if a different network address other than hive.server2.thrift.bind.host is to be used.</description>
   </property>
   <property>
@@ -5353,7 +5365,8 @@
   </property>
   <property>
     <name>hive.conf.restricted.list</name>
-    <value>hive.security.authenticator.manager,hive.security.authorization.manager,hive.users.in.admin.role,hive.server2.xsrf.filter.enabled</value>
+    <!-- value>hive.security.authenticator.manager,hive.security.authorization.manager,hive.users.in.admin.role,hive.server2.xsrf.filter.enabled</value -->
+    <value>hive.security.authenticator.manager,hive.security.authorization.manager,hive.server2.xsrf.filter.enabled</value>
     <description>Comma separated list of configuration options which are immutable at runtime</description>
   </property>
   <property>

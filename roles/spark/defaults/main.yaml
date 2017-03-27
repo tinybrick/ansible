@@ -1,0 +1,4 @@
+op: "{{operation}}" 
+user: spark
+home: /opt/spark/default
+src: "{{ role_path }}/files"

@@ -25,7 +25,10 @@
 export HADOOP_HOME=/opt/hdfs/default
 export HIVE_HOME=/opt/hive/default
 export HIVE_CONF_DIR=/opt/hive/default/conf
+export CONF_DIR=${HIVE_CONF_DIR}
+export HBASE_HOME=/opt/hbase/default
 export PATH=$PATH:$HIVE_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+# export HIVE_OPTS="$HIVE_OPTS -Djava.security.auth.login.config=${HIVE_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dsun.security.spnego.debug=true -Dsun.security.jgss.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true"
 
 # Hive Client memory usage can be an issue if a large number of clients
 # are running at the same time. The flags below have been useful in 

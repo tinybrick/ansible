@@ -1,0 +1,10 @@
+---
+- set_fact: script="master.sh"
+  when: service=='master'
+- set_fact: script="slave.sh spark://hadoop01.cloud.local:7077,hadoop02.cloud.local:7077"
+  when: service=='slave'
+- set_fact: script="history-server.sh"
+  when: service=='history'
+
+- name: "{{op}} {{service}}"
+  shell: "{{home}}/sbin/{{op}}-{{script}}"

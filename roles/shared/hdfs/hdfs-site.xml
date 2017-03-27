@@ -192,7 +192,7 @@
     <property>
         <description> path to the HDFS keytab </description>
         <name>dfs.namenode.keytab.file</name>
-        <value>/opt/hdfs/default/etc/hadoop/hadppo.keytab</value>
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value>
     </property>
 
     <property>
@@ -210,7 +210,7 @@
     <!-- Authenticaiton for DATANODE -->
      <property>
         <name>dfs.datanode.keytab.file</name> 
-        <value>/opt/hdfs/default/etc/hadoop/hadppo.keytab</value> 
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value> 
     </property>
 
     <property> 

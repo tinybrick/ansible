@@ -31,8 +31,8 @@ export JAVA_HOME=/usr/java/default
 export HADOOP_HOME=/opt/hdfs/default
 export HADOOP_LOG_DIR=/var/hdfs/logs
 export HADOOP_PID_DIR=/var/hdfs/logs
-#export HADOOP_OPTS="$HADOOP_OPTS"
-export HADOOP_OPTS="$HADOOP_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dsun.security.spnego.debug=true -Dsun.security.jgss.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true -Djava.security.debug=gssloginconfig,configfile,configparser,logincontext"
+export HADOOP_OPTS="$HADOOP_OPTS"
+export HADOOP_ZKFC_OPTS="$HADOOP_ZKFC_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dsun.security.spnego.debug=true -Dsun.security.jgss.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true -Djava.security.debug=gssloginconfig,configfile,configparser,logincontext"
 
 # The jsvc implementation to use. Jsvc is required to run secure datanodes
 # that bind to privileged ports to provide authentication of data transfer
@@ -59,10 +59,10 @@ done
 export HADOOP_OPTS="$HADOOP_OPTS -Djava.net.preferIPv4Stack=true"
 
 # Command specific options appended to HADOOP_OPTS when specified
-export HADOOP_NAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS"
-#export HADOOP_NAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true"
-export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS"
-#export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true"
+#export HADOOP_NAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS"
+export HADOOP_NAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true"
+#export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS"
+export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true"
 
 export HADOOP_SECONDARYNAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_SECONDARYNAMENODE_OPTS"
 
@@ -70,8 +70,8 @@ export HADOOP_NFS3_OPTS="$HADOOP_NFS3_OPTS"
 export HADOOP_PORTMAP_OPTS="-Xmx512m $HADOOP_PORTMAP_OPTS"
 
 # The following applies to multiple commands (fs, dfs, fsck, distcp etc)
-#export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS -Djava.security.auth.login.config=${HADOOP_CONF_DIR}/jaas.conf -Dsun.security.krb5.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true"
-export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
+export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS -Djava.security.auth.login.config=${CONF_DIR:-${HADOOP_CONF_DIR}}/jaas.conf -Dsun.security.krb5.debug=true -Dzookeeper.sasl.clientconfig=Client -Dzookeeper.sasl.client=true"
+#export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
 #HADOOP_JAVA_PLATFORM_OPTS="-XX:-UsePerfData $HADOOP_JAVA_PLATFORM_OPTS"
 
 # On secure datanodes, user to run the datanode as after dropping privileges.
