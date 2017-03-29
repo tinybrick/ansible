@@ -6,3 +6,8 @@
 
 - name: "{{op}} {{service}}"
   shell: "HADOOP_USER_NAME=hive/{{inventory_hostname}}@CLOUD.LOCAL nohup {{home}}/bin/hive --service {{service}} {{manipulate}}"
+  when: op=='start'
+
+- name: "{{op}} {{service}}"
+  shell: "jps | grep 'RunJar' | awk '{ printf $1 }' | xargs kill"
+  when: op=='stop'
