@@ -69,17 +69,17 @@
 
     <property>
         <name>yarn.app.mapreduce.am.staging-dir</name>
-        <value>/user/yarn</value>
+        <value>/temp</value>
     </property>
 
     <property>
     	<name>mapreduce.jobhistory.intermediate-done-dir</name>
-    	<value>${yarn.app.mapreduce.am.staging-dir}/history/temp</value>
+    	<value>${yarn.app.mapreduce.am.staging-dir}/history</value>
     </property>
 
     <property>
     	<name>mapreduce.jobhistory.done-dir</name>
-    	<value>${yarn.app.mapreduce.am.staging-dir}/history/done</value>
+    	<value>/user/yarn/history/done</value>
     </property>
 
     <property>

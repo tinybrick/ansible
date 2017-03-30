@@ -1,17 +1,10 @@
-- name: Upload shared config files
+- name: Upload config files
   copy: src={{ item }} dest="{{ home }}/etc/hadoop" owner="{{ user }}" mode=644
   with_fileglob:
     - "{{role_path}}/../shared/hdfs/*"
-
-- copy: src={{ item }} dest="{{ home }}/etc/hadoop" owner="{{ user }}" mode=644
-  with_fileglob:
     - "{{role_path}}/../shared/keys/*.jks"
     - "{{role_path}}/../shared/keys/*.keytab"
     - "{{role_path}}/../shared/keys/hadoop-http-auth-signature-secret"
-
-- name: Upload individual config files
-  copy: src={{ item }} dest="{{ home }}/etc/hadoop" owner="{{ user }}" mode=644
-  with_fileglob:
     - "{{ src }}/*"
 
 - file: path="{{ home }}/etc/hadoop/hadoop-http-auth-signature-secret" mode=0600
