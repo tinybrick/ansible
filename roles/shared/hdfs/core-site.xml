@@ -110,7 +110,7 @@
     -->
     <!-- WEB END -->
 
-    <!-- property>
+    <property>
         <name>hadoop.proxyuser.hdfs.hosts</name>
         <value>*</value>
     </property>
@@ -118,7 +118,7 @@
     <property>
         <name>hadoop.proxyuser.hdfs.groups</name>
         <value>*</value>
-    </property -->
+    </property>
 
     <property>
         <name>hadoop.proxyuser.hive.hosts</name>
@@ -129,4 +129,31 @@
         <name>hadoop.proxyuser.hive.groups</name>
         <value>*</value>
     </property>
+
+    <!-- property>
+        <name>hadoop.proxyuser.nfsuser1.hosts</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.nfsuser1.groups</name>
+        <value>*</value>
+    </property -->
+
+    <property>
+        <name>dfs.nfsgateway.keytab.file</name>
+        <value>/opt/hdfs/default/etc/hadoop/hadoop.keytab</value>
+    </property>
+    <property>
+        <name>dfs.nfsgateway.kerberos.principal</name>
+        <!-- value>nfsuser1@CLOUD.LOCAL</value -->
+        <value>hdfs@CLOUD.LOCAL</value>
+    </property>
+
+    <property>
+        <name>dfs.nfs.exports.allowed.hosts</name>
+        <!-- value>172.16.0.0/24 ro; hadoop*.cloud.local rw; docker*.cloud.local rw;</value -->
+        <value>* rw</value>
+    </property>
+
 </configuration>

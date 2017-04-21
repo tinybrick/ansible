@@ -3,7 +3,7 @@
 DC_HOSTNAME="dc"
 DOMAIN="cloud.local"
 REALM=$(echo "$DOMAIN" | tr '[:lower:]' '[:upper:]')
-USER_GROUP="Domain Users"
+USER_GROUP="Domain Linux Users"
 
 if [ "$1" != "" ];then
     PASSWORD="$1"

@@ -4,10 +4,10 @@ systemctl start ntpd
 
 systemctl stop firewalld
 systemctl disable firewalld
-systemctl enable iptables
-systemctl start iptables
+#systemctl enable iptables
+#systemctl start iptables
 
-iptables -A INPUT -s 172.16.0.0/24 -j ACCEPT
-iptables-save > /etc/sysconfig/iptables
+#iptables -A INPUT -s 172.16.0.0/24 -j ACCEPT
+#iptables-save > /etc/sysconfig/iptables
 
 systemctl restart network
