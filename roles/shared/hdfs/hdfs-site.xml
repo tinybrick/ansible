@@ -29,12 +29,16 @@
     </property>
     <!-- Zookeeper config END -->
 
+    <property>
+	<name>dfs.hosts.exclude</name>
+	<value>/opt/hdfs/default/etc/hadoop/excludes</value>
+    </property>
+
     <!-- NameNode config BEGIN -->
     <property>
         <name>dfs.nameservices</name>
         <value>hadoop1</value>
     </property>
-
 
     <!-- Federation:hadoop1 config -->
     <property>
